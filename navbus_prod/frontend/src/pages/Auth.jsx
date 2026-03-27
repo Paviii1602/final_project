@@ -63,10 +63,10 @@ export function Login() {
           </div>
           <h2>NavBus</h2>
         </div>
-
-        <h3>Welcome Back</h3>
-        <p className="subtitle">Sign in to track your bus</p>
-
+        <div style={{ textAlign:'center' }}>
+          <h3>Welcome Back</h3>
+          <p className="subtitle">Sign in to track your bus</p>
+        </div>
         <div className="input-group">
           <label>Username</label>
           <input
@@ -176,24 +176,16 @@ export function Register() {
           <div className="logo-icon">🚌</div>
           <h2>NavBus</h2>
         </div>
-        <div></div>
-
-        <h3>Create Account</h3>
-        <p className="subtitle">Join NavBus to track buses in Vellore</p>
-
-        <div style={{ marginBottom:16 }}>
-          <div className="step-label">I am a</div>
-          <div className="role-toggle">
-            <button className={`role-btn ${role==='passenger'?'active':''}`} onClick={() => setRole('passenger')}>🧑 Passenger</button>
-            <button className={`role-btn ${role==='driver'?'active':''}`}    onClick={() => setRole('driver')}>🚌 Driver</button>
-          </div>
+        <div style={{ textAlign:'center' }}>
+          <h3>Create Account</h3>
+          <p className="subtitle">Join NavBus to track buses in Vellore</p>
         </div>
 
         <div className="input-group">
           <label>Username</label>
           <input
             type="text"
-            placeholder="Choose a username (min 3 chars)"
+            placeholder="Choose a username"
             value={username}
             autoCapitalize="none"
             autoCorrect="off"
@@ -215,7 +207,13 @@ export function Register() {
             style={inp}
           />
         </div>
-
+        <div style={{ marginBottom:16 }}>
+          <div className="step-label">I am a</div>
+          <div className="role-toggle">
+            <button className={`role-btn ${role==='passenger'?'active':''}`} onClick={() => setRole('passenger')}>🧑 Passenger</button>
+            <button className={`role-btn ${role==='driver'?'active':''}`}    onClick={() => setRole('driver')}>🚌 Driver</button>
+          </div>
+        </div>
         {error && (
           <div style={{ background:'rgba(239,68,68,0.08)', border:'1px solid rgba(239,68,68,0.2)',
                         borderRadius:10, padding:'10px 14px', marginBottom:14,

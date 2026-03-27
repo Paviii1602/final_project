@@ -211,7 +211,7 @@ export default function BusTracking() {
       <div className="crowd-bar">
         {isCrowdsourcing ? (
           <div className="crowd-active">
-            <span className="live-dot" style={{ width:10, height:10 }}/> Sharing every 30s
+            <span className="live-dot" style={{ width:10, height:10 }}/> Location Sharing 
             <button onClick={stopCrowdsource} style={{ marginLeft:'auto', background:'none', border:'none', color:'var(--danger)', fontWeight:700, cursor:'pointer', fontSize:12 }}>Stop</button>
           </div>
         ) : (
@@ -298,7 +298,7 @@ export default function BusTracking() {
               })}
             </div>
           </>
-        ) : (
+        ): (
           <>
             <div style={{ padding:'14px 16px 4px', fontSize:13, color:'var(--text-muted)', fontWeight:500 }}>
               Departures from <span style={{ color:'var(--text-dark)', fontWeight:700 }}>{bus.start_point}</span>

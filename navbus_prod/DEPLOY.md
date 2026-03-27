@@ -73,35 +73,6 @@ Render auto-redeploys on every push. ✅
 
 ---
 
-## Option 2: Railway.app (Also free, slightly faster)
-
-1. Go to **https://railway.app** → Sign up
-2. Click **New Project → Deploy from GitHub**
-3. Select your repo
-4. Set root directory to `backend`
-5. Add environment variables (same as Render)
-6. Railway auto-detects the `Procfile` and deploys
-
-Your app URL: `https://navbus-production.up.railway.app`
-
----
-
-## Option 3: Run locally, expose globally with ngrok
-
-Perfect for testing before deploying:
-
-```bash
-# Terminal 1 — start the app
-cd backend
-python app.py
-
-# Terminal 2 — expose to internet
-npx ngrok http 5000
-# → https://abc123.ngrok.io (share this URL with anyone)
-```
-
----
-
 ## Setting up Google Maps
 
 1. Go to https://console.cloud.google.com

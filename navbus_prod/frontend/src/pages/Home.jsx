@@ -4,13 +4,6 @@ import { useApp } from '../context/AppContext';
 import ProfileDrawer from '../components/ProfileDrawer';
 import { api, getEtaLabel } from '../utils/api';
 
-/* ─────────────────────────────────────────────────────────
-   Reverse-geocode lat/lng → human-readable city name.
-   Uses the browser's free Nominatim (OpenStreetMap) API —
-   no API key required, works everywhere.
-   Returns something like "Vellore, Tamil Nadu" or just the
-   raw coords as fallback.
-   ───────────────────────────────────────────────────────── */
 async function reverseGeocode(lat, lng) {
   try {
     const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=en`;
