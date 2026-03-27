@@ -176,6 +176,7 @@ export function Register() {
           <div className="logo-icon">🚌</div>
           <h2>NavBus</h2>
         </div>
+        <div></div>
 
         <h3>Create Account</h3>
         <p className="subtitle">Join NavBus to track buses in Vellore</p>
