@@ -118,13 +118,6 @@ export function Login() {
             </span>
           ) : 'Sign In'}
         </button>
-
-        <div style={{ textAlign:'center', marginTop:12, fontSize:12, color:'var(--text-muted)',
-                      background:'rgba(21,168,205,0.07)', borderRadius:8, padding:'8px 12px' }}>
-          Demo — Passenger: <strong>passenger / pass123</strong><br/>
-          Demo — Driver: <strong>driver / driver123</strong>
-        </div>
-
         <div className="or-divider"><span>or</span></div>
         <div style={{ textAlign:'center' }}>
           <span style={{ fontSize:13, color:'var(--text-muted)' }}>New here? </span>

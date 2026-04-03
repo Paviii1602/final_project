@@ -312,7 +312,7 @@ body {
   padding: 7px 12px; border-radius: 8px; font-size: 13px; font-weight: 600;
   font-family: 'Poppins', sans-serif; position: relative;
 }
-.sched-chip.past { background: #e2e8f0; color: var(--text-muted); }
+.sched-chip.past { background: #e2e8f0; color: var(--text-muted); opacity: 0.5; }
 .sched-chip.next { border: 2px solid var(--primary); color: var(--primary); background: rgba(21,168,205,0.07); }
 .sched-chip.next::before {
   content: 'Next'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);

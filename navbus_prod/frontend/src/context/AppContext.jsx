@@ -41,13 +41,17 @@ export function AppProvider({ children }) {
     setToast(msg);
     setTimeout(() => setToast(null), duration);
   };
+  const clearSearches = () => {
+    setRecentSearches([]);
+    localStorage.removeItem('navbus_searches');
+  };
   const grantLocation = () => {
     setLocationGranted(true);
     localStorage.setItem('navbus_location', 'true');
   };
 
   return (
-    <AppContext.Provider value={{ user, login, logout, theme, toggleTheme, recentSearches, addSearch, locationGranted, grantLocation, toast, showToast, activeTrip, setActiveTrip }}>
+    <AppContext.Provider value={{ user, login, logout, theme, toggleTheme, recentSearches, addSearch, clearSearches, locationGranted, grantLocation, toast, showToast, activeTrip, setActiveTrip }}>
       {children}
       {toast && <div className="toast">{toast}</div>}
     </AppContext.Provider>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">NavBus</string>
+    <string name="title_activity_main">NavBus</string>
+    <string name="package_name">com.navbus.app</string>
+    <string name="custom_url_scheme">com.navbus.app</string>
+</resources>

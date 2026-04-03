@@ -88,9 +88,7 @@ export default function BusTracking() {
   }, []);
 
   useEffect(() => {
-    if (highlightStop && highlightRef.current) {
-      setTimeout(() => highlightRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 500);
-    }
+    // Autoscroll disabled as requested
   }, [bus, highlightStop]);
 
   const loadBus = async () => {
@@ -284,10 +282,11 @@ export default function BusTracking() {
                         <div style={{ textAlign:'right', flexShrink:0, marginLeft:8 }}>
                           {isLive && isPassed  && <span style={{ fontSize:12, color:'var(--text-muted)' }}>Passed</span>}
                           {isLive && isCurrent && <span className="eta-badge eta-arriving">Arriving</span>}
-                          {isLive && etaEntry?.status === 'upcoming' && (
-                            <div>
-                              <div className="stop-eta">{etaEntry.eta_minutes}</div>
-                              <div className="stop-dist">min · {etaEntry.distance_km} km</div>
+                          {!isLive && isCurrent && <span className="eta-badge eta-grey">Start</span>}
+                          {etaEntry?.status === 'upcoming' && (
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 2 }}>
+                              <span style={{ fontSize:13, fontWeight:700, color:'var(--primary)' }}>{etaEntry.eta_minutes} min</span>
+                              <span className="stop-dist">{etaEntry.distance_km} km</span>
                             </div>
                           )}
                         </div>

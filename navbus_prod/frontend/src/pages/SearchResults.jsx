@@ -69,11 +69,13 @@ export default function SearchResults() {
                   <div className="card-row">
                     <div>
                       <div className="bus-name">{bus.name}</div>
-                      <div style={{ marginTop:4 }}>
-                        <span className={`source-badge ${src.cls}`}>
-                          {bus.is_active && <span className="live-dot"/>} {src.label}
-                        </span>
-                      </div>
+                      {bus.is_active && (
+                        <div style={{ marginTop:4 }}>
+                          <span className={`source-badge ${src.cls}`}>
+                            <span className="live-dot"/> {src.label}
+                          </span>
+                        </div>
+                      )}
                     </div>
                     <div style={{ display:'flex', flexDirection:'column', alignItems:'flex-end', gap:6 }}>
                       <span className="bus-num-badge">{bus.bus_number}</span>

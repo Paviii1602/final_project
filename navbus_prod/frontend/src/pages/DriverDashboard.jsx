@@ -86,8 +86,20 @@ export default function DriverDashboard() {
     clearInterval(restTimer.current);
   }, []);
 
-  const nextStop = currentBus?.stops?.[2];
-  const nextDep  = currentBus?.schedule?.find(s => s.status === 'next')?.time;
+  // Fetch updated bus data periodically so the ETA is real-time for the driver
+  useEffect(() => {
+    let interval;
+    if (tripActive && selBus) {
+      interval = setInterval(() => {
+        api.getBus(selBus).then(setCurrentBus).catch(() => {});
+      }, 5000);
+    }
+    return () => clearInterval(interval);
+  }, [tripActive, selBus]);
+
+  const arrivingEta = currentBus?.eta?.find(e => e.status === 'arriving');
+  const nextStopObj = arrivingEta ? arrivingEta.name : currentBus?.stops?.[0]?.name;
+  const nextDep     = currentBus?.schedule?.find(s => s.status === 'next')?.time;
 
   return (
     <div style={{ minHeight:'100dvh', display:'flex', flexDirection:'column' }}>
@@ -148,7 +160,7 @@ export default function DriverDashboard() {
               </div>
               <div className="trip-stats">
                 <div className="trip-stat"><div className="val">{speed}</div><div className="lbl">km/h</div></div>
-                <div className="trip-stat"><div className="val" style={{ fontSize:13, fontWeight:700, color:'var(--warning)' }}>{nextStop?.name||'—'}</div><div className="lbl">Next Stop</div></div>
+                <div className="trip-stat"><div className="val" style={{ fontSize:13, fontWeight:700, color:'var(--warning)' }}>{nextStopObj||'—'}</div><div className="lbl">Next Stop</div></div>
                 <div className="trip-stat"><div className="val" style={{ fontSize:14 }}>{nextDep||'—'}</div><div className="lbl">Next Dep.</div></div>
               </div>
               {driverLat && <div style={{ fontSize:11, color:'var(--text-muted)', textAlign:'center', marginTop:4 }}>📍 {driverLat.toFixed(5)}, {driverLng.toFixed(5)}</div>}
@@ -181,15 +193,21 @@ export default function DriverDashboard() {
             {activeTab==='stops' && currentBus && (
               <div className="timeline" style={{ paddingBottom:24 }}>
                 {currentBus.stops.map((stop, idx) => {
-                  const isNext   = idx === 2;
-                  const isPassed = idx < 2;
+                  const etaList = currentBus.eta || [];
+                  const etaEntry = etaList.find(e => e.name === stop.name);
+                  
                   const isFirst  = idx === 0;
                   const isLast   = idx === currentBus.stops.length-1;
+                  
+                  // Use real ETA if available, fallback to dummy
+                  const isCurrent = etaEntry?.status === 'arriving';
+                  const isPassed  = etaEntry ? etaEntry.status === 'passed' : idx < 2;
+
                   return (
                     <div className="timeline-stop" key={stop.id}>
                       <div className="timeline-left">
                         {idx>0 && <div className={`timeline-line ${isPassed?'passed':''}`}/>}
-                        <div className={`timeline-dot ${isPassed?'passed':isNext?'next-stop':isFirst?'start':isLast?'end':''}`}/>
+                        <div className={`timeline-dot ${isPassed?'passed':isCurrent?'next-stop':isFirst?'start':isLast?'end':''}`}/>
                         {idx<currentBus.stops.length-1 && <div className={`timeline-line ${isPassed?'passed':''}`}/>}
                       </div>
                       <div className="timeline-content">
@@ -197,11 +215,12 @@ export default function DriverDashboard() {
                           <div style={{ display:'flex', alignItems:'center', gap:5 }}>
                             {isFirst && <span className="stop-badge badge-start">START</span>}
                             {isLast  && <span className="stop-badge badge-end">END</span>}
-                            {isNext  && <span className="stop-badge badge-next">NEXT</span>}
+                            {isCurrent && <span className="stop-badge badge-next">NEXT</span>}
                             <span className={`stop-name ${isPassed?'passed':''}`}>{stop.name}</span>
                           </div>
                           {isPassed && <span style={{ fontSize:11, color:'var(--text-muted)' }}>Passed</span>}
-                          {isNext   && <span className="eta-badge eta-teal">~3 min</span>}
+                          {isCurrent && <span className="eta-badge eta-arriving">Arriving</span>}
+                          {etaEntry?.status === 'upcoming' && <span className="eta-badge eta-teal">{etaEntry.eta_minutes} min</span>}
                         </div>
                       </div>
                     </div>

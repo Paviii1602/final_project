@@ -11,10 +11,6 @@ export default function LocationPermission() {
         () => {
           grantLocation();
           navigate(user?.role === 'driver' ? '/driver' : '/home');
-        },
-        () => {
-          grantLocation();
-          navigate(user?.role === 'driver' ? '/driver' : '/home');
         }
       );
     } else {

@@ -190,22 +190,6 @@ export default function Home() {
           <button className="search-btn" onClick={handleSearch} style={{ marginBottom: 10 }}>
             🔍 Find My Bus
           </button>
-
-          {/* Find Buses Near Me — directly below */}
-          <button
-            onClick={handleNearby}
-            style={{
-              width: '100%', padding: '11px',
-              border: '1.5px dashed rgba(255,255,255,0.55)',
-              borderRadius: 11,
-              background: 'rgba(255,255,255,0.10)',
-              color: '#fff', fontSize: 13, fontWeight: 600,
-              fontFamily: 'Poppins, sans-serif',
-              cursor: 'pointer', touchAction: 'manipulation',
-            }}
-          >
-            📍 Find Buses Near Me
-          </button>
         </div>
       </div>
 
@@ -245,7 +229,7 @@ export default function Home() {
                   <div className="card-row">
                     <div>
                       <div className="bus-name">{bus.name}</div>
-                      <div className="bus-hours">⏰ {bus.operating_hours}</div>
+                      <div className="bus-hours">{bus.operating_hours}</div>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6 }}>
                       <span className="bus-num-badge">{bus.bus_number}</span>
